@@ -1,0 +1,54 @@
+{
+  "id": "pii-redactor",
+  "name": "PII Redactor",
+  "description": "Client-side PII anonymization for LLM pipelines. Redacts personal information before it reaches any provider.",
+  "version": "0.1.0",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "enabled": {
+        "type": "boolean",
+        "default": true,
+        "description": "Enable PII redaction"
+      },
+      "port": {
+        "type": "number",
+        "default": 18791,
+        "description": "Sidecar HTTP port"
+      },
+      "presidio": {
+        "type": "boolean",
+        "default": true,
+        "description": "Enable Presidio NER (names/orgs/locations). Disable for regex-only mode."
+      },
+      "threshold": {
+        "type": "number",
+        "default": 0.35,
+        "description": "Presidio confidence threshold (0.0-1.0)"
+      },
+      "vaultPath": {
+        "type": "string",
+        "default": "~/.pii-redactor/vault.db",
+        "description": "SQLite vault path"
+      },
+      "skipTypes": {
+        "type": "array",
+        "items": { "type": "string" },
+        "default": [],
+        "description": "Entity types to skip (e.g. DATE_TIME)"
+      },
+      "allowList": {
+        "type": "array",
+        "items": { "type": "string" },
+        "default": [],
+        "description": "Values that should never be redacted"
+      },
+      "logRedactions": {
+        "type": "boolean",
+        "default": false,
+        "description": "Log redacted entity counts (not values) for debugging"
+      }
+    }
+  }
+}
